@@ -1,39 +1,310 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aysel’e Özel — Burak'tan 💖</title>
-  <style>
-    body {
-      background: pink;
-      color: white;
-      text-align: center;
-      font-family: "Comic Sans MS", cursive;
-      padding: 40px;
-    }
-    h1 { font-size: 32px; }
-    p { font-size: 18px; }
-    .heart {
-      color: red;
-      font-size: 30px;
-      animation: pulse 1s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aysel’e Özel — Burak'tan 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--pink:#ffb3d9;--dark:#e60073;}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(circle at 10% 10%, #fff7fb, #ffddee 60%);font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--dark);-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:980px;margin:0 auto;padding:18px;}
+  header{text-align:center;padding-top:22px;padding-bottom:6px;}
+  h1{margin:0;font-size:clamp(22px,6vw,40px);letter-spacing:1px;text-shadow:0 2px 6px rgba(230,0,115,0.12);}
+  p.lead{color:#8c0056;margin-top:8px;font-size:clamp(13px,3vw,17px);}
+  .center{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .btn{background:linear-gradient(90deg,var(--pink),#ff80bf);border:none;color:white;padding:10px 14px;border-radius:999px;font-weight:800;
+       box-shadow:0 0 18px rgba(230,0,115,0.35);cursor:pointer;transition:transform .18s, box-shadow .18s, filter .18s;}
+  .btn:hover{transform:translateY(-4px) scale(1.03);filter:brightness(1.03);}
+  .controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+  .sparkle{position:relative;overflow:visible;}
+  .sparkle:after{content:'';position:absolute;inset:-6px;border-radius:999px;box-shadow:0 0 22px rgba(255,120,180,0.24);opacity:0;transition:opacity .25s;}
+  .sparkle:hover:after{opacity:1;}
+  .photos{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:16px;}
+  .photo{flex:1;min-width:120px;max-width:48%;overflow:hidden;border-radius:14px;box-shadow:0 8px 40px rgba(230,0,115,0.12);border:3px solid rgba(255,255,255,0.6)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s;}
+  .photo:hover img{transform:scale(1.04);}
+  #messageBox{margin-top:18px;padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,240,250,0.9));
+               box-shadow:0 8px 30px rgba(0,0,0,0.06);min-height:88px;white-space:pre-wrap;font-size:15px;}
+  .heart{position:fixed;pointer-events:none;z-index:9999;font-size:20px;opacity:0;animation:floatUp linear forwards;}
+  @keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1);}100%{opacity:0;transform:translateY(-120vh) scale(1.8);}}
+  .letter-modal{position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.36),rgba(0,0,0,0.5));display:none;align-items:center;justify-content:center;padding:18px;z-index:9998;}
+  .letter-card{max-width:720px;width:100%;background:linear-gradient(180deg,#fff,#fff8fb);padding:20px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.28);position:relative;}
+  .close-x{position:absolute;right:12px;top:10px;background:#fff;border-radius:10px;padding:6px 8px;cursor:pointer;font-weight:700;}
+  .letter-text{white-space:pre-wrap;color:#3a0724;line-height:1.55;font-size:15px;}
+  footer{text-align:center;margin-top:22px;padding-bottom:26px;color:#8c004f;font-size:13px;}
+  @media (max-width:600px){.photos{flex-direction:row;} .photo{max-width:48%;} .btn{padding:10px 12px;font-size:14px;}}
+</style>
 </head>
 <body>
-  <h1>💖 Aysel’e Özel Sürpriz 💖</h1>
-  <p>Bu site Burak tarafından, kalpten gelen duygularla hazırlandı 💞</p>
-  <p class="heart">❤️❤️❤️</p>
-  <p>“Benim dünyam senden sonra güzelleşti, Allah seni sol yanımdan hiç ayırmasın.”</p>
-  <audio controls autoplay loop>
-    <source src="https://www.youtube.com/watch?v=Zlq0cTaRW-w" type="audio/mpeg">
-    Tarayıcın müziği desteklemiyor 😢
-  </audio>
+<div class="wrap">
+  <header>
+    <h1>🎂 Doğum Günün Kutlu Olsun, Aysel 💖</h1>
+    <p class="lead">Bu sürpriz Burak tarafından hazırlandı — dokun, oku, gül, ağla; hepsi senin için.</p>
+  </header>
+
+  <div class="center">
+    <button class="btn sparkle" id="openLetterBtn">💌 Mektubu Aç</button>
+    <div class="controls">
+      <button class="btn sparkle" id="msgBtn">✨ Rastgele Mesaj</button>
+      <button class="btn sparkle" id="reasonsBtn">💘 Neden Seni Seviyorum?</button>
+      <button class="btn sparkle" id="photoBtn">📷 Fotoğrafları Göster</button>
+      <button class="btn sparkle" id="gameBtn">🎲 Küçük Oyun</button>
+    </div>
+  </div>
+
+  <div class="center" style="margin-top:12px;">
+    <button class="btn sparkle" id="noteBtn">💓 Aysel’e Not Bırak</button>
+    <button class="btn sparkle" id="futureBtn">💫 Geleceğimiz</button>
+    <button class="btn sparkle" id="rainBtn">💐 Kalp Yağmuru</button>
+    <button class="btn sparkle" id="poemBtn">📜 Şiir Oku</button>
+    <button class="btn sparkle" id="wishBtn">🌙 Dilek Tut</button>
+    <button class="btn sparkle" id="memBtn">🩷 Benimle Hatıralar</button>
+  </div>
+
+  <div id="messageBox" aria-live="polite">Merhaba Aysel 💕 — "Mektubu Aç" butonuna dokun veya diğer ışıltılı butonlara dokun.</div>
+
+  <!-- FOTOĞRAFLAR: buraya kendi görsellerinin URL'sini veya base64 data URL koy -->
+  <div class="photos" id="photosSection" style="display:none;margin-top:12px;">
+    <div class="photo"><img id="img1" src="IMAGE1_SRC" alt="Fotoğraf 1"></div>
+    <div class="photo"><img id="img2" src="IMAGE2_SRC" alt="Fotoğraf 2"></div>
+  </div>
+
+  <div style="display:flex;justify-content:center;margin-top:16px;">
+    <div style="width:320px;max-width:92%;background:linear-gradient(180deg,#fff,#ffeef7);border-radius:14px;padding:14px;box-shadow:0 14px 40px rgba(230,0,115,0.12);border:2px solid rgba(255,255,255,0.6);text-align:center;">
+      <div style="font-weight:800;color:var(--dark);margin-bottom:6px;">Sana özel bir hediye</div>
+      <button class="btn sparkle" id="openNow">Mektubu Açmak İçin Dokun</button>
+    </div>
+  </div>
+
+  <!-- MEKTUP MODAL -->
+  <div class="letter-modal" id="letterModal">
+    <div class="letter-card">
+      <div class="close-x" id="closeLetter">✕</div>
+      <h2 style="margin:0 0 8px;color:var(--dark);">Sevgili Aysel,</h2>
+      <div class="letter-text" id="letterText">
+Yıllar sonra belkide içimdeki çocuğu güldürebilen birini buldum sence bu kolayca vazgeçilebilecek bi şey mi?
+Benim dünyam senden sonra güzelleşti, Allah seni sol yanımdan hiç ayırmasın.
+Başımı kaldırıp bakamam kimseye; neyim varsa, neyim eksikse yerine sensin.
+Hani derler ya ömründe bir kez çıkar karşına, öylesin işte.
+İlksin, sonsun, sonsuzsun bende.
+Sen bana iyi ki yârsın. Hissettiğim şeyleri haykırabilen biri olmayı çok istedim ama yapabildiğim senden gizli, kendi köşemde damla damla gözyaşıma sığdırmak oldu hep seni.
+Yolun kararsa ışık olamazsam gölgene eşlik ederim; düşersen kaldıramazsam yanına çökerim.
+Gün gelecek, mesafelerin engelini de aşacağız beraber. Acele etme minnoş kuşum, senin baharın herkesinkinden daha çiçekli ve pespembe olacak.
+      </div>
+      <div style="text-align:center;margin-top:14px;"><button class="btn" id="closeBtn">Kapat</button></div>
+    </div>
+  </div>
+
+  <!-- ŞİİR MODAL -->
+  <div class="letter-modal" id="poemModal" style="display:none;">
+    <div class="letter-card">
+      <div class="close-x" id="closePoem">✕</div>
+      <h2 style="margin:0 0 8px;color:var(--dark);">Bir Şiir</h2>
+      <div class="letter-text" id="poemText">
+Yanımda değilsin ama gözümün daldığı her yerdesin.
+Sokakta yürürken rüzgâr sana dokunuyor gibi geliyor, gökyüzüne baktığımda senin gözlerinin derinliğini görüyorum.
+Her küçük ayrıntıda senin izini arıyorum; kahvenin buğu veren fincanında, sokaktaki ışıkların yansımasında, hatta en sessiz anların sessizliğinde.
+Mesafeler aramızda engel olsa da, kalbim hep seninle. Ve biliyorum ki, senin varlığın her yerde benimle; her düşüncemde, her hissettiğim duyguda…
+Sana dokunamasam da, ruhum sana sarılıyor. Seni düşündükçe, sevginin ne kadar güçlü olduğunu bir kez daha anlıyorum. Yakında yanında olacağım günü sabırsızlıkla bekliyorum.
+      </div>
+      <div style="text-align:center;margin-top:14px;"><button class="btn" id="closePoemBtn">Kapat</button></div>
+    </div>
+  </div>
+
+  <!-- HATIRALAR MODAL -->
+  <div class="letter-modal" id="memModal" style="display:none;">
+    <div class="letter-card" style="text-align:center;">
+      <div class="close-x" id="closeMem">✕</div>
+      <h2 style="margin:0 0 8px;color:var(--dark);">Benimle Hatıralar</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+        <div style="width:140px;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);"><img id="mem1" src="IMAGE1_SRC" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div style="width:140px;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12);"><img id="mem2" src="IMAGE2_SRC" style="width:100%;height:100%;object-fit:cover;"></div>
+      </div>
+      <div style="margin-top:12px;"><button class="btn" id="closeMemBtn">Kapat</button></div>
+    </div>
+  </div>
+
+  <footer>🎵 Hande Ünsal - Halim &nbsp; • &nbsp; <small style="opacity:0.9">Bu site Burak tarafından, Aysel’e kalpten sevgilerle hazırlandı 💞</small></footer>
+</div>
+
+<!-- YouTube arka plan (gizli) -->
+<iframe id="ytplayer" width="1" height="1" style="position:fixed;left:0;top:0;opacity:0;pointer-events:none;"
+src="https://www.youtube.com/embed/Zlq0cTaRW-w?autoplay=1&controls=0&loop=1&playlist=Zlq0cTaRW-w&rel=0&modestbranding=1"
+frameborder="0" allow="autoplay; encrypted-media"></iframe>
+
+<!-- Oynat/Durdur düğmesi -->
+<div style="position:fixed;right:14px;bottom:14px;z-index:9999;">
+  <button id="toggleAudio" class="btn sparkle" style="padding:10px 12px;border-radius:999px;font-size:14px;">⏯️ Oynat/Durdur</button>
+</div>
+
+<!-- Yıldız/canvas efekti için tuval -->
+<canvas id="starCanvas" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9997;"></canvas>
+
+<script>
+/* === Özelleştirilebilir içerikler === */
+const extras = {
+  notes: [
+    "Seninle her güne uyanmak istiyorum.",
+    "Gülüşün en sevdiğim melodi.",
+    "Ellerin ellerimdeyken dünya duruyor.",
+    "Sen benim en doğru seçimimsin.",
+    "Her anınla daha da aşık oluyorum.",
+    "Sana baktığımda evimi görüyorum."
+  ],
+  futures: [
+    "Birlikte küçük bir evimiz olsun, pembe perdeli.",
+    "Sabahları beraber kahve yapalım, kahve kokusu evimizi sarsın.",
+    "Her yıl tatil için yeni bir şehir keşfedelim.",
+    "El ele sahilde yürüyelim, gün batımını birlikte izleyelim.",
+    "Küçük bir bahçe, içinde çiçekler, sen ve ben."
+  ]
+};
+
+/* === Eşlik eden küçük efektler (kalpler, yıldızlar) === */
+function popHearts(n=8){
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div');
+    el.className = 'heart';
+    el.style.left = Math.random()*100 + 'vw';
+    el.style.fontSize = (12 + Math.random()*28) + 'px';
+    document.body.appendChild(el);
+    el.textContent = ['💖','💗','💕'][Math.floor(Math.random()*3)];
+    el.style.animationDuration = (2 + Math.random()*4) + 's';
+    setTimeout(()=> el.remove(), 7000);
+  }
+}
+
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+function shootStars(count=30){
+  const stars = [];
+  for(let i=0;i<count;i++){
+    stars.push({x: Math.random()*canvas.width, y: canvas.height + Math.random()*200, r: Math.random()*2+1, vx:(Math.random()-0.5)*2, vy: -(2+Math.random()*5), life:60+Math.random()*60});
+  }
+  function frame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    let alive = 0;
+    for(let s of stars){
+      if(s.life>0){
+        s.x += s.vx; s.y += s.vy; s.life--;
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,240,255,'+ (s.life/120) +')';
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); alive++;
+      }
+    }
+    if(alive>0) requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* === Buton davranışları === */
+const messageBox = document.getElementById('messageBox');
+const photosSection = document.getElementById('photosSection');
+const modal = document.getElementById('letterModal');
+const poemModal = document.getElementById('poemModal');
+const memModal = document.getElementById('memModal');
+const yt = document.getElementById('ytplayer');
+const toggleAudio = document.getElementById('toggleAudio');
+let ytPlaying = true;
+
+const messages = [
+  "Seninle her güne uyanmak istiyorum.",
+  "Gülüşün en sevdiğim melodi.",
+  "Ellerin ellerimdeyken dünya duruyor.",
+  "Sen benim en doğru seçimimsin.",
+  "Her anınla daha da aşık oluyorum.",
+  "Sana baktığımda evimi görüyorum."
+];
+const reasons = [
+  "Gülüşünle dünyam renkleniyor 🌈",
+  "İçtenliğin beni büyülüyor 💖",
+  "Yanındayken zaman duruyor ⏳",
+  "Sen benim en güvenli limanımsın ⚓️"
+];
+
+document.getElementById('msgBtn').addEventListener('click', ()=>{
+  const all = messages.concat(extras.notes);
+  messageBox.textContent = all[Math.floor(Math.random()*all.length)];
+  popHearts(10);
+});
+document.getElementById('reasonsBtn').addEventListener('click', ()=>{
+  messageBox.innerHTML = reasons.map(r=>'❤️ '+r).join('<br>');
+  popHearts(14);
+});
+document.getElementById('photoBtn').addEventListener('click', ()=>{
+  photosSection.style.display = photosSection.style.display === 'none' ? 'flex' : 'none';
+  popHearts(8);
+});
+document.getElementById('gameBtn').addEventListener('click', ()=>{
+  const love = prompt('Aysel, beni ne kadar seviyorsun? (1-10 arası sayı gir)');
+  if(love===null) return;
+  if(Number(love)>=8) messageBox.textContent = 'Ben de seni sonsuz kere seviyorum 💞💞💞';
+  else messageBox.textContent = 'Hemen sarılalım mı? 😜';
+  popHearts(10);
+});
+
+document.getElementById('noteBtn').addEventListener('click', ()=>{
+  const notes = [
+    "Sen benim en kıymetlimsin.",
+    "Her şeyim sensin.",
+    "Bugün ve her gün seninleyim."
+  ].concat(extras.notes);
+  messageBox.textContent = notes[Math.floor(Math.random()*notes.length)];
+  popHearts(16);
+});
+
+document.getElementById('futureBtn').addEventListener('click', ()=>{
+  messageBox.innerHTML = extras.futures.map(f=>'🌸 '+f).join('<br>');
+  popHearts(12);
+});
+
+document.getElementById('rainBtn').addEventListener('click', ()=>{
+  popHearts(40);
+  messageBox.textContent = 'Kalpler yağdı 💗💗💗';
+});
+
+document.getElementById('poemBtn').addEventListener('click', ()=>{
+  poemModal.style.display='flex';
+  popHearts(18);
+});
+
+document.getElementById('wishBtn').addEventListener('click', ()=>{
+  shootStars(40);
+  messageBox.textContent = 'Dileğini tut... ✨';
+  popHearts(8);
+});
+
+document.getElementById('memBtn').addEventListener('click', ()=>{
+  memModal.style.display='flex';
+  popHearts(12);
+});
+
+document.getElementById('openLetterBtn').addEventListener('click', ()=>{ modal.style.display='flex'; popHearts(20); playYT(); });
+document.getElementById('openNow').addEventListener('click', ()=>{ modal.style.display='flex'; popHearts(20); playYT(); });
+document.getElementById('closeLetter').addEventListener('click', ()=>{ modal.style.display='none'; });
+document.getElementById('closeBtn').addEventListener('click', ()=>{ modal.style.display='none'; });
+document.getElementById('closePoem').addEventListener('click', ()=>{ poemModal.style.display='none'; });
+document.getElementById('closePoemBtn').addEventListener('click', ()=>{ poemModal.style.display='none'; });
+document.getElementById('closeMem').addEventListener('click', ()=>{ memModal.style.display='none'; });
+document.getElementById('closeMemBtn').addEventListener('click', ()=>{ memModal.style.display='none'; });
+
+toggleAudio.addEventListener('click', ()=>{
+  if(ytPlaying){ yt.dataset.src = yt.src; yt.src = 'about:blank'; ytPlaying=false; toggleAudio.textContent='▶️ Oynat'; }
+  else{ yt.src = yt.dataset.src || 'https://www.youtube.com/embed/Zlq0cTaRW-w?autoplay=1&controls=0&loop=1&playlist=Zlq0cTaRW-w&rel=0&modestbranding=1'; ytPlaying=true; toggleAudio.textContent='⏸️ Durdur'; }
+});
+
+function playYT(){ if(!ytPlaying) { yt.src = yt.dataset.src || yt.src; ytPlaying = true; toggleAudio.textContent='⏸️ Durdur'; } }
+
+setTimeout(()=>{ messageBox.textContent = 'Merhaba Aysel 💕 — Burak sana bu sürprizi hazırladı. \"Mektubu Aç\" butonuna dokun.'; popHearts(12); },700);
+
+/* === İpucu: fotoğrafları ekleme ===
+ - Eğer telefonundaki bir fotoğrafı kullanmak istersen: fotoğrafı Imgur/Google Drive/Dropbox vb. bir servise yükle ve doğrudan görüntülenen (public) linki IMAGE1_SRC / IMAGE2_SRC yerine yapıştır.
+ - Eğer base64 ile gömmek istersen: data:image/jpeg;base64,AAAA... formatında IMG verisini IMAGE1_SRC yerine koy.
+*/
+</script>
 </body>
 </html>
